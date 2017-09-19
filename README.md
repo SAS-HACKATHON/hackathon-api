@@ -1,2 +1,0 @@
-# hackathon
-hackathon-repository

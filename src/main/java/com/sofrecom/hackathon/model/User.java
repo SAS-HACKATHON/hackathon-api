@@ -12,7 +12,6 @@ public class User {
 	@Id
 	private String userId;
 	private String password = "";
-	private String company;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -88,14 +87,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
 	}
 
 	public String getFirstName() {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sofrecom.hackathon.model.Article;
 import com.sofrecom.hackathon.model.Commentaire;
 import com.sofrecom.hackathon.repository.ArticleRepo;
 import com.sofrecom.hackathon.repository.CommentaireRepo;
@@ -26,8 +27,16 @@ public class CommentaireService {
 		return commentaireRepo.findByArticle(articleRepo.findOne(id));
 	}
 
-	public boolean insertOrSaveUser(Commentaire commentaire) {
+	public boolean insertOrSaveCommentaire(Commentaire commentaire) {
 		commentaireRepo.save(commentaire);
 		return true;
+	}
+
+	public void deleteCommentaire(Commentaire commentaire) {
+		commentaireRepo.delete(commentaire);
+	}
+
+	public Commentaire findById(Integer id) {
+		return commentaireRepo.findOne(id);
 	}
 }

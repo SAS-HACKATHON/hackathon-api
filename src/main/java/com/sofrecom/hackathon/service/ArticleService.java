@@ -22,7 +22,7 @@ public class ArticleService {
 		return articleRepo.findAll();
 	}
 
-	public boolean insertOrSaveUser(Article article) {
+	public boolean insertOrSaveArticle(Article article) {
 		this.articleRepo.save(article);
 		return true;
 	}
@@ -30,8 +30,16 @@ public class ArticleService {
 	public List<Article> findByCategory(Integer id) {
 		return articleRepo.findByCategory(categoryRepo.findOne(id));
 	}
-	
+
 	public List<Article> findByType(String type) {
 		return articleRepo.findByType(type);
+	}
+
+	public Article findById(Integer id) {
+		return articleRepo.findOne(id);
+	}
+
+	public void deleteArticle(Article article) {
+		 articleRepo.delete(article);
 	}
 }

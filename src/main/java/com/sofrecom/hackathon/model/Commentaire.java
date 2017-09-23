@@ -1,5 +1,7 @@
 package com.sofrecom.hackathon.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,12 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "commentaires")
-public class Commentaire extends GenericEntity {
+public class Commentaire   {
 
 	/**
 	 * 
@@ -26,6 +30,9 @@ public class Commentaire extends GenericEntity {
 
 	@Column(name = "commentaire")
 	private String commentaire;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date commentDate;
 
 	@ManyToOne
 	@JoinColumn(name = "article_id", referencedColumnName = "id")

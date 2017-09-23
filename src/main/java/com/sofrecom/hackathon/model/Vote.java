@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "votes")
-public class Vote extends GenericEntity {
+public class Vote   {
 
 	/**
 	 * 

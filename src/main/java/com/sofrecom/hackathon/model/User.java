@@ -3,6 +3,7 @@ package com.sofrecom.hackathon.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,10 +25,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	
+	@Column(name = "username")
 	private String username;
+	
+	@Column(name = "password")
 	private String password = "";
+	
+	@Column(name = "firstName")
 	private String firstName;
+	
+	@Column(name = "lastName")
 	private String lastName;
+	
+	@Column(name = "email")
 	private String email;
 
 	@JsonIgnore

@@ -2,7 +2,7 @@ package com.sofrecom.hackathon.enumeration;
 
 public enum ArticleType {
 
-	Actu("ACTU"), ACTUTECHNO("ACTUTECHNO"), EVENT("EVENT");
+	Actu("ACTU"), ACTUTECHNO("ACTU_TECHNO"), EVENT("EVENT");
 
 	private String text;
 

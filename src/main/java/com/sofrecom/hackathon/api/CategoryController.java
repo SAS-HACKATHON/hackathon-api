@@ -36,13 +36,26 @@ public class CategoryController extends BaseController {
 	@ApiOperation(value = "Add new Category")
 	@RequestMapping(value = "/category/add", method = RequestMethod.POST, produces = { "application/json" })
 	public ResponseEntity<Category> addNewCategory(@RequestBody Category category, HttpServletRequest req) {
-		boolean categoryAddSuccess = categoryService.insertOrSaveUser(category);
+		boolean categoryAddSuccess = categoryService.insertOrSaveCategory(category);
 		if (categoryAddSuccess == true) {
 			return new ResponseEntity<>(category, HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>(category, HttpStatus.FAILED_DEPENDENCY);
+			return new ResponseEntity<>(category, HttpStatus.NOT_FOUND);
 		}
 
 	}
+	
+	@ApiOperation(value = "update  category" )
+	@RequestMapping(value = "/category/update", method = RequestMethod.PUT, produces = { "application/json" })
+	  public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
+		
+		boolean categoryAddSuccess = categoryService.insertOrSaveCategory(category);
+		
+		if (categoryAddSuccess == true) {
+			return new ResponseEntity<>(category, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(category, HttpStatus.NOT_FOUND);
+		}
+	  }
 
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,12 +22,12 @@ import com.sofrecom.hackathon.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @RestController
 @Api(tags = { "Articles" })
 public class ArticleController extends BaseController {
+
+	public final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
 	@Autowired
 	ArticleService articleService;
@@ -41,18 +43,16 @@ public class ArticleController extends BaseController {
 	@ApiOperation(value = "Add new Article")
 	@RequestMapping(value = "/article/add", method = RequestMethod.POST, produces = { "application/json" })
 	public ResponseEntity<Article> addNewCategory(@RequestBody Article article, HttpServletRequest req) {
-		boolean articleAddSuccess = articleService.insertOrSaveUser(article);
+		boolean articleAddSuccess = articleService.insertOrSaveArticle(article);
 		if (articleAddSuccess == true) {
 			return new ResponseEntity<>(article, HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>(article, HttpStatus.FAILED_DEPENDENCY);
+			return new ResponseEntity<>(article, HttpStatus.NOT_FOUND);
 		}
 
 	}
 
-	@SuppressWarnings("null")
 	@ApiOperation(value = "get articles by category", notes = "", response = Article.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Article.class) })
 	@RequestMapping(value = "/category/{id}/articles", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<List<Article>> articlesByCategory(
 			@ApiParam(value = "article id ", required = true) @PathVariable("id") Integer id) {
@@ -68,9 +68,8 @@ public class ArticleController extends BaseController {
 		}
 
 	}
-	
+
 	@ApiOperation(value = "get articles by category", notes = "", response = Article.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Article.class) })
 	@RequestMapping(value = "/articles/{type}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<List<Article>> articlesByType(
 			@ApiParam(value = "article id ", required = true) @PathVariable("type") String type) {
@@ -85,6 +84,32 @@ public class ArticleController extends BaseController {
 			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 
+	}
+
+	@ApiOperation(value = "update  article")
+	@RequestMapping(value = "/article/update", method = RequestMethod.PUT, produces = { "application/json" })
+	public ResponseEntity<Article> updateArticle(@RequestBody Article article) {
+
+		boolean articleAddSuccess = articleService.insertOrSaveArticle(article);
+
+		if (articleAddSuccess == true) {
+			return new ResponseEntity<>(article, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(article, HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@ApiOperation(value = "delete  article")
+	@RequestMapping(value = "/article/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteArticle(@PathVariable("id") Integer id) {
+
+		Article article = articleService.findById(id);
+		if (article == null) {
+			logger.error("Unable to delete. Article with id {} not found.", id);
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		articleService.deleteArticle(article);
+		return new ResponseEntity<Article>(HttpStatus.NO_CONTENT);
 	}
 
 }

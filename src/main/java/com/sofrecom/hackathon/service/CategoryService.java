@@ -15,7 +15,7 @@ public class CategoryService {
 	@Autowired
 	CategoryRepo categoryRepo;
 
-	public boolean insertOrSaveUser(Category category) {
+	public boolean insertOrSaveCategory(Category category) {
 		this.categoryRepo.save(category);
 		return true;
 	}

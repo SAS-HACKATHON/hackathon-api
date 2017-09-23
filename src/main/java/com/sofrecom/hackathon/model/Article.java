@@ -1,5 +1,6 @@
 package com.sofrecom.hackathon.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,10 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "articles")
-public class Article extends GenericEntity {
+public class Article   {
 
 	/**
 	 * 
@@ -25,18 +28,25 @@ public class Article extends GenericEntity {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "fullText")
+	@Column(name = "fulltext")
 	private String fullText;
 
 	@Column(name = "summary")
 	private String summary;
 
-	@Column(name = "type")
+	@Column(name = "article_type")
 	private String type;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date postDate;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User user;
 
 	public Integer getId() {
 		return id;

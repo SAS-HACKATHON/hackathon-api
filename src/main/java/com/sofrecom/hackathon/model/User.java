@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +23,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String username;
 	private String password = "";
 	private String firstName;
@@ -51,8 +52,12 @@ public class User {
 	private boolean enableRenewal;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	List<Article> articles;
+	@JoinColumn(name = "user_id")
+	@JsonIgnore
+	List<Commentaire> commentaires;
+	
 
+	
 	public User() {
 		this("new", "PASSWORD", Role.USER, "new", "new", true, "", "", true, false);
 	}
@@ -100,12 +105,12 @@ public class User {
 		this.username = username;
 	}
 
-	public List<Article> getArticles() {
-		return articles;
+	public List<Commentaire> getCommentaires() {
+		return commentaires;
 	}
 
-	public void setArticles(List<Article> articles) {
-		this.articles = articles;
+	public void setCommentaires(List<Commentaire> commentaires) {
+		this.commentaires = commentaires;
 	}
 
 	public String getFullName() {
@@ -223,5 +228,11 @@ public class User {
 	public void setEnableRenewal(boolean enableRenewal) {
 		this.enableRenewal = enableRenewal;
 	}
+
+	
+	
+	
+	
+	
 
 }

@@ -1,5 +1,6 @@
 package com.sofrecom.hackathon.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,16 +20,10 @@ public class Vote extends GenericEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "vote")
 	private int vote;// 1/0/-1
 
-	@ManyToOne
-	@JoinColumn(name = "user_fk", referencedColumnName = "id")
-	private User user;
 
-	@ManyToOne
-
-	@JoinColumn(name = "article_fk", referencedColumnName = "id")
-	private Article article;
 
 	public Integer getId() {
 		return id;
@@ -44,22 +39,6 @@ public class Vote extends GenericEntity {
 
 	public void setVote(int vote) {
 		this.vote = vote;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Article getArticle() {
-		return article;
-	}
-
-	public void setArticle(Article article) {
-		this.article = article;
 	}
 
 }

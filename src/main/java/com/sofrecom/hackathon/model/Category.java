@@ -1,5 +1,8 @@
 package com.sofrecom.hackathon.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,10 +20,10 @@ public class Category extends GenericEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "description")
 	private String description;
-
-
 
 	public Integer getId() {
 		return id;
@@ -45,8 +48,5 @@ public class Category extends GenericEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
-	
 
 }

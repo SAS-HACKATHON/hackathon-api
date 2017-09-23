@@ -1,5 +1,6 @@
 package com.sofrecom.hackathon.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "commentaires")
@@ -20,15 +23,18 @@ public class Commentaire extends GenericEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@Column(name = "commentaire")
 	private String commentaire;
 
 	@ManyToOne
-	@JoinColumn(name = "user_fk", referencedColumnName = "id")
-	private User user;
+	@JoinColumn(name = "article_id", referencedColumnName = "id")
+	private Article article;
 
 	@ManyToOne
-	@JoinColumn(name = "article_fk", referencedColumnName = "id")
-	private Article article;
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JsonIgnore
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -46,20 +52,20 @@ public class Commentaire extends GenericEntity {
 		this.commentaire = commentaire;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Article getArticle() {
 		return article;
 	}
 
 	public void setArticle(Article article) {
 		this.article = article;
+	}
+
+	public User getRuser() {
+		return user;
+	}
+
+	public void setRuser(User user) {
+		this.user = user;
 	}
 
 }

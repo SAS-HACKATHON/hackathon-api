@@ -24,17 +24,8 @@ public abstract class GenericEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * creation date : this field is updated by the EntityLastModifiedSetter
+	 * last modified date : this field is updated by the EntityLastModifiedSetter
 	 * class)
-	 */
-
-	@JsonIgnore
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date creationDate;
-
-	/**
-	 * last modified date : this field is updated by the
-	 * EntityLastModifiedSetter class)
 	 */
 	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
@@ -56,23 +47,9 @@ public abstract class GenericEntity implements Serializable {
 	public Date getLastmodified() {
 		return lastmodified;
 	}
-	
+
 	public void setLastmodified(Date lastmodified) {
 		this.lastmodified = lastmodified == null ? null : (Date) lastmodified.clone();
 	}
-
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate == null ? null : (Date) creationDate.clone();
-		
-	}
-
-
-	
-
-	
 
 }

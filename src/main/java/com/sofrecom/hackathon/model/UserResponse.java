@@ -1,9 +1,6 @@
 package com.sofrecom.hackathon.model;
 
-import io.swagger.annotations.*;
 import lombok.*;
-import java.util.*;
-
 
 @Data
 @EqualsAndHashCode(callSuper = false)

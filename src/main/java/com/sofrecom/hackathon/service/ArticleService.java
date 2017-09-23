@@ -28,6 +28,6 @@ public class ArticleService {
 	}
 
 	public List<Article> findByCategory(Integer id) {
-		return articleRepo.finByCategory(categoryRepo.findOne(id));
+		return articleRepo.findByCategory(categoryRepo.findOne(id));
 	}
 }

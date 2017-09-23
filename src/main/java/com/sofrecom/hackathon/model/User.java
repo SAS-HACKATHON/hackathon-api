@@ -1,16 +1,29 @@
 package com.sofrecom.hackathon.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import javax.persistence.*;
-import lombok.*;
-import javax.validation.constraints.*;
-import java.util.EnumSet;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "users")
 public class User {
 	@Id
-	private String userId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	private String username;
 	private String password = "";
 	private String firstName;
 	private String lastName;
@@ -37,26 +50,28 @@ public class User {
 	@JsonIgnore
 	private boolean enableRenewal;
 
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	List<Article> articles;
+
 	public User() {
 		this("new", "PASSWORD", Role.USER, "new", "new", true, "", "", true, false);
 	}
 
-	public User(String userId, String password, String firstName, String lastName) {
-		this(userId, password, Role.USER, firstName, lastName, true, "", "", true, false);
+	public User(String username, String password, String firstName, String lastName) {
+		this(username, password, Role.USER, firstName, lastName, true, "", "", true, false);
 	}
 
-	public User(String userId, String password, Role role, String firstName, String lastName) {
-		this(userId, password, role, firstName, lastName, true, "", "", true, false);
+	public User(String username, String password, Role role, String firstName, String lastName) {
+		this(username, password, role, firstName, lastName, true, "", "", true, false);
 	}
 
-	public User(String userId, String password, Role role, String firstName, String lastName, boolean isActive) {
-		this(userId, password, role, firstName, lastName, isActive, "", "", true, false);
+	public User(String username, String password, Role role, String firstName, String lastName, boolean isActive) {
+		this(username, password, role, firstName, lastName, isActive, "", "", true, false);
 	}
 
-	public User(String userId, String password, Role role, String firstName, String lastName, boolean isActive,
+	public User(String username, String password, Role role, String firstName, String lastName, boolean isActive,
 			String secretQuestion, String secretAnswer, boolean enableRenewal, boolean enableBetaTesting) {
-		this.setUserId(userId);
-		this.setEmail(userId);
+		this.setUsername(username);
 		this.setPassword(new BCryptPasswordEncoder().encode(password));
 		this.setRole(role);
 		this.setFirstName(firstName);
@@ -69,16 +84,40 @@ public class User {
 		this.setEnableBetaTesting(enableBetaTesting);
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
 	public String getFullName() {
 		return this.firstName + this.lastName;
 	}
 
-	public String getUserId() {
-		return userId;
+	public Integer getUserId() {
+		return id;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUserId(Integer id) {
+		this.id = id;
 	}
 
 	public String getPassword() {

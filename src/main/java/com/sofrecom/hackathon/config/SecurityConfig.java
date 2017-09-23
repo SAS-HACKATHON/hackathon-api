@@ -49,7 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
         .exceptionHandling().and()
-        .anonymous().and()
         // Disable Cross site references
         .csrf().disable()
         // Add CORS Filter
@@ -59,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
         .addFilterBefore(new GenerateTokenForUserFilter ("/session", authenticationManager(), tokenUtil), UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests()
-        .anyRequest().authenticated()
+        .anyRequest().fullyAuthenticated()
         ;
     }
 

@@ -2,20 +2,13 @@ package com.sofrecom.hackathon.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.sofrecom.hackathon.model.Role;
 import com.sofrecom.hackathon.model.User;
 import com.sofrecom.hackathon.repository.UserRepo;
 import com.sofrecom.hackathon.security.TokenUser;
-
-import java.util.Optional;
 
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
@@ -27,7 +20,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public final TokenUser loadUserByUsername(String username) throws UsernameNotFoundException, DisabledException {
 
-        final User user = userRepo.findOneByUserId(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        final User user = userRepo.findOneByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         TokenUser currentUser;
         if (user.isActive() == true){
             currentUser = new TokenUser(user);

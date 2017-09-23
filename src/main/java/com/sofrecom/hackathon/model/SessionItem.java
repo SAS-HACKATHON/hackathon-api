@@ -6,7 +6,7 @@ import java.util.*;
 @Data
 public class SessionItem {
 	private String token;
-	private String userId;
+	private Integer userId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -20,11 +20,11 @@ public class SessionItem {
 		this.token = token;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

@@ -30,4 +30,8 @@ public class ArticleService {
 	public List<Article> findByCategory(Integer id) {
 		return articleRepo.findByCategory(categoryRepo.findOne(id));
 	}
+	
+	public List<Article> findByType(String type) {
+		return articleRepo.findByType(type);
+	}
 }

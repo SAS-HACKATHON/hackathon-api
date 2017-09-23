@@ -56,6 +56,10 @@ public abstract class GenericEntity implements Serializable {
 	public Date getLastmodified() {
 		return lastmodified;
 	}
+	
+	public void setLastmodified(Date lastmodified) {
+		this.lastmodified = lastmodified == null ? null : (Date) lastmodified.clone();
+	}
 
 	public Date getCreationDate() {
 		return creationDate;
@@ -63,10 +67,12 @@ public abstract class GenericEntity implements Serializable {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate == null ? null : (Date) creationDate.clone();
+		
 	}
 
-	public void setLastmodified(Date lastmodified) {
-		this.lastmodified = lastmodified == null ? null : (Date) lastmodified.clone();
-	}
+
+	
+
+	
 
 }

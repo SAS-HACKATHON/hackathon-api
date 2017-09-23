@@ -25,11 +25,11 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @Api(tags = { "Articles" })
-public class ArticleController extends BaseController{
-	
+public class ArticleController extends BaseController {
+
 	@Autowired
-	ArticleService  articleService;
-	
+	ArticleService articleService;
+
 	@ApiOperation(value = "Gets All Articles")
 	@RequestMapping(value = "/articles", method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Article>> getAllArticles() {
@@ -37,8 +37,7 @@ public class ArticleController extends BaseController{
 		return new ResponseEntity<>(articleService.findAll(), HttpStatus.OK);
 
 	}
-	
-	
+
 	@ApiOperation(value = "Add new Article")
 	@RequestMapping(value = "/article/add", method = RequestMethod.POST, produces = { "application/json" })
 	public ResponseEntity<Article> addNewCategory(@RequestBody Article article, HttpServletRequest req) {
@@ -50,29 +49,42 @@ public class ArticleController extends BaseController{
 		}
 
 	}
-	
 
 	@SuppressWarnings("null")
 	@ApiOperation(value = "get articles by category", notes = "", response = Article.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Article.class) })
 	@RequestMapping(value = "/category/{id}/articles", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public ResponseEntity<List<Article>> articlesByCategory(@ApiParam(value = "article id ", required = true) @PathVariable("id") Integer id) {
+	public ResponseEntity<List<Article>> articlesByCategory(
+			@ApiParam(value = "article id ", required = true) @PathVariable("id") Integer id) {
 
 		List<Article> articles = articleService.findByCategory(id);
-		
+
 		if (articles != null || !articles.isEmpty()) {
 			return new ResponseEntity<>(articles, HttpStatus.OK);
 		}
-		
-		else {
-			return  new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
-		}
 
-		
+		else {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
 
 	}
 	
-	
-	
+	@ApiOperation(value = "get articles by category", notes = "", response = Article.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Article.class) })
+	@RequestMapping(value = "/articles/{type}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public ResponseEntity<List<Article>> articlesByType(
+			@ApiParam(value = "article id ", required = true) @PathVariable("type") String type) {
+
+		List<Article> articles = articleService.findByType(type);
+
+		if (articles != null || !articles.isEmpty()) {
+			return new ResponseEntity<>(articles, HttpStatus.OK);
+		}
+
+		else {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+		}
+
+	}
 
 }

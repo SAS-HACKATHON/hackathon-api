@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // custom JSON based authentication by POST of {"username":"<name>","password":"<password>"} which sets the token header upon authentication
         .addFilterBefore(new GenerateTokenForUserFilter ("/session", authenticationManager(), tokenUtil), UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests()
-        .anyRequest().fullyAuthenticated()
+        .anyRequest().authenticated()
         ;
     }
 

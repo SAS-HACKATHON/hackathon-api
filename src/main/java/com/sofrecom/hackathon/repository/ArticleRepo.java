@@ -12,4 +12,5 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
 	List<Article> findArticleByTitle(String title);
 
 	List<Article> findByCategory(Category category);
+	List<Article> findByType(String type);
 }

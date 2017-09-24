@@ -10,7 +10,7 @@ public class SessionItem {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private List<String> roles;
+	private String role;
 
 	public String getToken() {
 		return token;
@@ -52,12 +52,12 @@ public class SessionItem {
 		this.email = email;
 	}
 
-	public List<String> getRoles() {
-		return roles;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

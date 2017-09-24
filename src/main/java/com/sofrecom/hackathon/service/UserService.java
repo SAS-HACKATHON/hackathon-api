@@ -1,14 +1,11 @@
 package com.sofrecom.hackathon.service;
 import java.util.List;
 
-import com.google.common.base.Strings;
 import com.sofrecom.hackathon.model.*;
 import com.sofrecom.hackathon.repository.UserRepo;
 
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

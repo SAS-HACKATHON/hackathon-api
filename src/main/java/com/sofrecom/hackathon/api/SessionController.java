@@ -29,7 +29,7 @@ public class SessionController extends BaseController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Will return a security token, which must be passed in every request", response = SessionResponse.class) })
-	@RequestMapping(value = "session", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/session", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public SessionResponse newSession(@RequestBody Login login, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -44,7 +44,7 @@ public class SessionController extends BaseController {
 			sessionItem.setFirstName(user.getFirstName());
 			sessionItem.setLastName(user.getLastName());
 			sessionItem.setEmail(user.getEmail());
-			// sessionItem.setRole(user.getRole());
+			sessionItem.setRole((user.getRole().toString()));
 
 			resp.setOperationStatus(ResponseStatusEnum.SUCCESS);
 			resp.setOperationMessage("Dummy Login Success");

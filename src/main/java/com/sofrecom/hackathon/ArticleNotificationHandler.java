@@ -17,7 +17,8 @@ public class ArticleNotificationHandler extends TextWebSocketHandler {
         if (session != null && session.isOpen()) {
             try {
                 System.out.println("Now sending:" + article.getTitle());
-                session.sendMessage(new TextMessage("{\"title\": \"" + article.getTitle() + "\"}"));
+                session.sendMessage(new TextMessage("{\"title\": \"" + article.getTitle() + "\","
+                		+ " \"summary\" : \""+article.getSummary()+"\"}"));
             } catch (Exception e) {
                 e.printStackTrace();
             }

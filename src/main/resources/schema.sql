@@ -37,8 +37,9 @@ CREATE TABLE categories (
 );
 
 /* Table: articles (Application Articles) */
+create sequence group_seq;
 CREATE TABLE articles (
-    id    INT NOT NULL ,
+    id    INT default group_seq.nextval  ,
     title    TEXT,
     article_type  NVARCHAR(50) ,
     summary   TEXT ,
@@ -58,3 +59,4 @@ CREATE TABLE commentaires (
 	user_id INT references users(id),
 	PRIMARY KEY(id)
 );
+

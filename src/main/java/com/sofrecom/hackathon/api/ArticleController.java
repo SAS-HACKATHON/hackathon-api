@@ -10,12 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sofrecom.hackathon.ArticleNotificationHandler;
 import com.sofrecom.hackathon.model.Article;
 import com.sofrecom.hackathon.service.ArticleService;
 
@@ -32,6 +39,9 @@ public class ArticleController extends BaseController {
 	@Autowired
 	ArticleService articleService;
 
+	@Autowired
+    ArticleNotificationHandler articleNotificationHandler;
+	
 	@ApiOperation(value = "Gets All Articles")
 	@RequestMapping(value = "/articles", method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Article>> getAllArticles() {
@@ -45,6 +55,7 @@ public class ArticleController extends BaseController {
 	public ResponseEntity<Article> addNewCategory(@RequestBody Article article, HttpServletRequest req) {
 		boolean articleAddSuccess = articleService.insertOrSaveArticle(article);
 		if (articleAddSuccess == true) {
+			articleNotificationHandler.createArticleCallback(article);
 			return new ResponseEntity<>(article, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(article, HttpStatus.NOT_FOUND);
@@ -110,6 +121,15 @@ public class ArticleController extends BaseController {
 		}
 		articleService.deleteArticle(article);
 		return new ResponseEntity<Article>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	@SubscribeMapping("/topic/chart/{aa}")
+	@SendTo("/topic/chart/{aa}")
+	@CrossOrigin(value="*")
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void sendNotification(@DestinationVariable("aa") int aa) {
+		System.out.println(aa);
 	}
 
 }

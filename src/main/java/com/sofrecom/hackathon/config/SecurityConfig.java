@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Filters will not get executed for the resources
-        web.ignoring().antMatchers(
+        web.ignoring().antMatchers	(
         		"/",
         		"/**",
         		"/resources/**",
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //If Security is not working check application.properties if it is set to ignore
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+       /* http
         .exceptionHandling().and()
         // Disable Cross site references
         .csrf().disable()
@@ -59,7 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .addFilterBefore(new GenerateTokenForUserFilter ("/session", authenticationManager(), tokenUtil), UsernamePasswordAuthenticationFilter.class)
         .authorizeRequests()
         .anyRequest().authenticated()
-        ;
+        ;*/
+    	
+    	http
+        .authorizeRequests()
+        .antMatchers("/**").permitAll();
     }
 
     /*

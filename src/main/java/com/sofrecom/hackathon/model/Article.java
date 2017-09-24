@@ -1,5 +1,6 @@
 package com.sofrecom.hackathon.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,21 +11,47 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 
 @Entity
 @Table(name = "articles")
 public class Article   {
 
+	@Id
+	@SequenceGenerator(name = "LAYER_ID_GENERATOR", sequenceName = "group_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LAYER_ID_GENERATOR")
+	private Integer id;
+	
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
 	@Column(name = "title")
 	private String title;
 
@@ -45,16 +72,9 @@ public class Article   {
 	private Category category;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@JoinColumn(name = "user_id", referencedColumnName = "id" )
 	private User user;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;

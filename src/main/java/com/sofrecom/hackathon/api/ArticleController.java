@@ -53,6 +53,9 @@ public class ArticleController extends BaseController {
 	@ApiOperation(value = "Add new Article")
 	@RequestMapping(value = "/article/add", method = RequestMethod.POST, produces = { "application/json" })
 	public ResponseEntity<Article> addNewCategory(@RequestBody Article article, HttpServletRequest req) {
+		article.setTitle("test article");
+		article.setSummary("short text");
+		article.setFullText("texte");
 		boolean articleAddSuccess = articleService.insertOrSaveArticle(article);
 		if (articleAddSuccess == true) {
 			articleNotificationHandler.createArticleCallback(article);

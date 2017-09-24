@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Filters will not get executed for the resources
-        web.ignoring().antMatchers(
+        web.ignoring().antMatchers	(
         		"/",
         		"/**",
         		"/resources/**",

@@ -12,7 +12,6 @@ public class ArticleNotificationHandler extends TextWebSocketHandler {
 
     WebSocketSession session;
 
-    // This will send only to one client(most recently connected)
     public void createArticleCallback(Article article) {
         System.out.println("Trying to send:" + article.getTitle());
         if (session != null && session.isOpen()) {

@@ -9,7 +9,7 @@ USE hackathon;
 
 /* Table: user (Application Users) */
 CREATE TABLE users (
-    id     INT NOT NULL,
+    id     INT(2) NOT NULL,
     username  NVARCHAR(50) ,
     password    NVARCHAR(20) NOT NULL,
     first_name  NVARCHAR(50) ,

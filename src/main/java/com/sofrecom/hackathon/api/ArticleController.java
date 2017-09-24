@@ -67,7 +67,7 @@ public class ArticleController extends BaseController {
 	@RequestMapping(value = "/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<Article> articleById(
 			@ApiParam(value = "article id ", required = true) @PathVariable("id") Integer id) {
-
+		
 		Article article = articleService.findById(id);
 
 		if (article != null) {
@@ -128,7 +128,7 @@ public class ArticleController extends BaseController {
 	}
 
 	@ApiOperation(value = "delete  article")
-	@RequestMapping(value = "/article/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteArticle(@PathVariable("id") Integer id) {
 
 		Article article = articleService.findById(id);

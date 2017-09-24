@@ -45,7 +45,7 @@ public class ArticleController extends BaseController {
 	@ApiOperation(value = "Gets All Articles")
 	@RequestMapping(value = "/articles", method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Article>> getAllArticles() {
-
+		articleNotificationHandler.createArticleCallback(articleService.findAll().get(0));
 		return new ResponseEntity<>(articleService.findAll(), HttpStatus.OK);
 
 	}

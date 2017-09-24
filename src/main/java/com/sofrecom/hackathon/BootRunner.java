@@ -52,6 +52,8 @@ public class BootRunner extends SpringBootServletInitializer implements WebSocke
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(articleNotificationHandler, "/counter").setAllowedOrigins("*");
     }
+    
+    
 }
 
 /*

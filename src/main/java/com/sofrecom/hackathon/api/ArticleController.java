@@ -40,8 +40,8 @@ public class ArticleController extends BaseController {
 	ArticleService articleService;
 
 	@Autowired
-    ArticleNotificationHandler articleNotificationHandler;
-	
+	ArticleNotificationHandler articleNotificationHandler;
+
 	@ApiOperation(value = "Gets All Articles")
 	@RequestMapping(value = "/articles", method = RequestMethod.GET, produces = { "application/json" })
 	public ResponseEntity<List<Article>> getAllArticles() {
@@ -59,6 +59,23 @@ public class ArticleController extends BaseController {
 			return new ResponseEntity<>(article, HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<>(article, HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	@ApiOperation(value = "find Article", response = Article.class)
+	@RequestMapping(value = "/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public ResponseEntity<Article> articleById(
+			@ApiParam(value = "article id ", required = true) @PathVariable("id") Integer id) {
+
+		Article article = articleService.findById(id);
+
+		if (article != null) {
+			return new ResponseEntity<>(article, HttpStatus.OK);
+		}
+
+		else {
+			return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 		}
 
 	}
@@ -122,11 +139,10 @@ public class ArticleController extends BaseController {
 		articleService.deleteArticle(article);
 		return new ResponseEntity<Article>(HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 	@SubscribeMapping("/topic/chart/{aa}")
 	@SendTo("/topic/chart/{aa}")
-	@CrossOrigin(value="*")
+	@CrossOrigin(value = "*")
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public void sendNotification(@DestinationVariable("aa") int aa) {
 		System.out.println(aa);
